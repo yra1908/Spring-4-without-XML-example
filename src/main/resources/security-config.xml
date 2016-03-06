@@ -10,20 +10,19 @@
 
 	<!-- Enable @PreAuthorize (RollesAllowed) @PreAuthorize("hasRole('ROLE_ADMIN')")-->
 	<global-method-security pre-post-annotations="enabled">
-		<expression-handler ref="goalExpressionHandler"/>
+		<expression-handler ref="eventExpressionHandler"/>
 	</global-method-security>
 	
-	<!-- Property values injection from application.properties 
+	<!-- Property values injection from application.properties -->	
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<beans:property name="location" value="classpath:application.properties"/> 
-	</beans:bean>-->
-	
+	</beans:bean>
 	
 	<!-- Enable Permissions  Difference with previous - permission to run method - add Goal for exact user type (admin).
 	 Main class - GoalPermissionsEvaluetor.java. Special annotation needed @PreAuthorize("hasPermission(#event, 'createEvent')")-->
-	<beans:bean id="goalExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+	<beans:bean id="eventExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
 		<beans:property name="permissionEvaluator">
-			<beans:bean id="permissionEvaluator" class="com.example.security.GoalPermissionsEvaluetor">
+			<beans:bean id="permissionEvaluator" class="com.example.security.AddEventPermissionsEvaluator">
 				<beans:property name="datasource" ref="dataSource"/>
 			</beans:bean>
 		</beans:property>	

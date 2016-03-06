@@ -42,7 +42,7 @@ public class EventController {
     
     //method save new event or update existing one from session
     @RequestMapping(value = "/event", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_ADMIN') and hasPermission(#event, 'createEvent')") //adding permission to create goal
+    @PreAuthorize("hasRole('ROLE_ADMIN') and hasPermission(#event, 'createEvent')") //adding permission to create event
     public String processEvent(@ModelAttribute("event") Event event){ 
         System.out.println(event.getName());
         

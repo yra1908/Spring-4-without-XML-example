@@ -17,12 +17,10 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
-import com.example.security.GoalPermissionsEvaluetor;
-
 @Configuration
 @EnableWebMvcSecurity
-//@ImportResource({ "classpath:security-config.xml" })
-@EnableGlobalMethodSecurity(prePostEnabled = true)                      //Enable @PreAuthorize 
+//@ImportResource({ "classpath:security-config.xml" })                     
+//@EnableGlobalMethodSecurity(prePostEnabled = true)                      //Enable @PreAuthorize 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired DataSource datasource;    
@@ -30,13 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         
-        auth.jdbcAuthentication().dataSource(datasource)
-            .passwordEncoder(new BCryptPasswordEncoder());
+        auth.jdbcAuthentication()
+            .dataSource(datasource)
+            .passwordEncoder(new BCryptPasswordEncoder());  
         
-        //not working Permissions Why???
-        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setPermissionEvaluator(new GoalPermissionsEvaluetor());
-               
     }
     
     @Override
@@ -49,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .antMatchers("/getEvents.html").access("hasRole('ROLE_ADMIN')")
           .anyRequest().authenticated()
           .and()
-              .formLogin().loginPage("/login.html").failureUrl("/loginFailed.html").defaultSuccessUrl("/index.html")               
+              .formLogin().loginPage("/login.html").failureUrl("/login.html?error").defaultSuccessUrl("/index.html")               
           .and()
               .logout().logoutSuccessUrl("/logout.html")  
           .and()

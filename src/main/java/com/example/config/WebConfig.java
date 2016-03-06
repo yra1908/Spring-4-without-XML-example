@@ -38,14 +38,4 @@ public class WebConfig extends WebMvcConfigurerAdapter { //extend WebMvcConfigur
         registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
     }
     
-    /*@Bean(name = "dataSource")  //Defined in PersistanceConfig.java Maybe better to declare it here
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/test");
-        driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("password");
-        return driverManagerDataSource;
-    }*/
-
 }

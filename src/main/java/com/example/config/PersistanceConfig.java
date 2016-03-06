@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -53,7 +54,7 @@ public class PersistanceConfig {
        return em;
     }
   
-    @Bean (name = "dataSource")
+    @Bean    
     public DataSource dataSource(){
        DriverManagerDataSource dataSource = new DriverManagerDataSource();
        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
@@ -82,6 +83,7 @@ public class PersistanceConfig {
        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
        properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.show_sql"));
        return properties;
-    }
+    }    
+    
 
 }
